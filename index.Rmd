@@ -40,7 +40,7 @@ sense of community (Valli 2016).
 
   In order to accomplish my findings, I ended up creating an application through Yelp's API for Developers. That application was the basis for my API Key and search conditions that I used to apply to my code. Then, within my code, I added sections where I could apply specific terms for my search parameters. (This will be demonstrated within my code chunks below.) I ended up focusing on the search term, "African-American", and then looking for categories applicable to nightlife, such as, "bars, venues", etc. 
 
-Data: The data that I used to create maps were all open-source data. Ggmap, Ggplot2 and Leaflet were my main sources of map creation. I installed the packages and created maps based on the data points I extracted from my Yelp search. However, my biggest issue that I need help with is pulling the coordinate data directly from my Yelp search onto my map.
+Data: The data that I used to create maps were all open-source data. Ggplot2 and Leaflet were my main sources of map creation. I installed the packages and created maps based on the data points I extracted from my Yelp search. However, my biggest issue that I need help with is pulling the coordinate data directly from my Yelp search onto my map.
 
 Challenges: When I was creating my map, I pulled the data from Yelp into a separate .csv file and then re-loaded it into R. However, the data was not fully reading, so in order to accomplish this first draft, I manually added Markers and Popups as points onto my map. I would like assistance in remedying this issue, by directly have all of the information that Yelp pulls from its search into my Markers as Popup information. 
 
@@ -55,6 +55,7 @@ library(sf)
 library(jsonlite)
 library(ggplot2)
 library(leaflet)
+library(htmltools)
 
 # Load yelpr package
 library(yelpr)
@@ -72,7 +73,7 @@ business_bk <- business_search(api_key = key,
 business_bk_spatial <- business_bk$businesses %>% as.data.frame() %>% 
   jsonlite::flatten(recursive = TRUE) %>% unnest(cols="coordinates.latitude") %>%
   st_as_sf(coords=c("coordinates.longitude", "coordinates.latitude"))
-business_bk_spatial<-business_bk_spatial %>% mutate(popup=paste0("<br/><b><a href='",url,"'>",name,"</a"))
+business_bk_spatial<-business_bk_spatial %>% mutate(popup=paste0("<br/><b><a href='",url,"'>",name,"</a></b>"))
 
 View(business_bk_spatial)
 
@@ -101,7 +102,7 @@ business_bk_spatial %>%
   addProviderTiles(providers$Esri.WorldStreetMap, group = "World Street Map") %>%
   addLayersControl(baseGroups = c("World Imagery","World Street Map")) %>%
   # Add the businesses as Markers
-  addCircleMarkers(popup = business_bk_spatial, fillOpacity = 0.5)%>%
+  addCircleMarkers(fillOpacity = 0.5, popup = ~popup)%>%
  setView(lat = 40.650002, lng =-73.949997, zoom = 9.5)
 
 ```
