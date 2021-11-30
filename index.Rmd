@@ -73,7 +73,7 @@ business_bk <- business_search(api_key = key,
 business_bk_spatial <- business_bk$businesses %>% as.data.frame() %>% 
   jsonlite::flatten(recursive = TRUE) %>% unnest(cols="coordinates.latitude") %>%
   st_as_sf(coords=c("coordinates.longitude", "coordinates.latitude"))
-business_bk_spatial<-business_bk_spatial %>% mutate(popup=paste0("<br/><b><a href='",url,"'>",name,"</a></b>"))
+business_bk_spatial<-business_bk_spatial %>% mutate(popup=paste0("<br/><b><a href='",url,"'>",name,"</a></b><br>",location.address1))
 
 View(business_bk_spatial)
 
