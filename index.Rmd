@@ -61,7 +61,7 @@ library(htmltools)
 library(yelpr)
 
 # Assign App Key
-key <- sys.Getenv("YELP_API_KEY") 
+key <- Sys.getenv("YELP_API_KEY") 
 #"ovIH-U3kauQ5ikHV5951RqsOq81q4MycWiu5xIsFCzd_c2zKxAwUdhb-SDvOeJ9Wrp_3rSVS3z5PuQDqfbl9grNOI3SFeHsOViv2eXZMnus6NlYyWs3gURZP_m-UYXYx"
 
 # Search businesses with keyword 'black' in 'Brooklyn, New York'
