@@ -60,6 +60,9 @@ library(htmltools)
 # Load yelpr package
 library(yelpr)
 
+#Load in tidycensus package
+library(tidycensus)
+
 # Assign App Key
 key <- Sys.getenv("YELP_API_KEY") 
 #"ovIH-U3kauQ5ikHV5951RqsOq81q4MycWiu5xIsFCzd_c2zKxAwUdhb-SDvOeJ9Wrp_3rSVS3z5PuQDqfbl9grNOI3SFeHsOViv2eXZMnus6NlYyWs3gURZP_m-UYXYx"
