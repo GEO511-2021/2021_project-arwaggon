@@ -60,9 +60,14 @@ library(htmltools)
 # Load yelpr package
 library(yelpr)
 
+```
+
+```{r, echo=F}
 # Assign App Key
 key <- "ovIH-U3kauQ5ikHV5951RqsOq81q4MycWiu5xIsFCzd_c2zKxAwUdhb-SDvOeJ9Wrp_3rSVS3z5PuQDqfbl9grNOI3SFeHsOViv2eXZMnus6NlYyWs3gURZP_m-UYXYx"
+```
 
+```{r}
 # Search businesses with keyword 'black' in 'Brooklyn, New York'
 business_bk <- business_search(api_key = key,
                                location = 'Brooklyn, NY',
@@ -75,7 +80,6 @@ business_bk_spatial <- business_bk$businesses %>% as.data.frame() %>%
   st_as_sf(coords=c("coordinates.longitude", "coordinates.latitude"))
 business_bk_spatial<-business_bk_spatial %>% mutate(popup=paste0("<br/><b><a href='",url,"'>",name,"</a></b><br>",location.address1))
 
-View(business_bk_spatial)
 
 # Test plot
 ggplot(business_bk_spatial)+geom_sf()
