@@ -73,7 +73,7 @@ key <- Sys.getenv("YELP_API_KEY")
 #key <-  "ovIH-U3kauQ5ikHV5951RqsOq81q4MycWiu5xIsFCzd_c2zKxAwUdhb-SDvOeJ9Wrp_3rSVS3z5PuQDqfbl9grNOI3SFeHsOViv2eXZMnus6NlYyWs3gURZP_m-UYXYx"
 
 #Assign Census App Key
-census_api_key <- Sys.getenv("CENSUS_API_KEY")
+census_api_key(Sys.getenv("CENSUS_API_KEY"))
 #census_api_key("f48d3af8bc5fffac768182aef551a3d3841a4ae8", overwrite= TRUE, install= TRUE)
 
 #Search for races in Brooklyn, NY using 2020 Census Data
