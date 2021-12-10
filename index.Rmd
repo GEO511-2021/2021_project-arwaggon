@@ -150,18 +150,6 @@ business_bk_spatial %>%
   addCircleMarkers(fillOpacity = 0.5, popup = ~popup)%>%
  setView(lat = 40.650002, lng =-73.949997, zoom = 9.5)
 
-# Create map of Block Group points
-bk <- brooklyn
-#st_crop(c(xmin=-73.98255,xmax=-73.98122,ymin=40.60562,ymax=40.60787))
-bk_dots = foreach(i=unique(bk$variable),.combine=rbind,.packages='tidyverse') %dopar% {
-bk %>%
-filter(bk$variable==i)%>% #one variable at a time
-st_sample(size=.$value)%>% #generate point for each person randomly
-st_as_sf()%>% #convert to sf object
-mutate(variable=i)}
-
-mapview(bk_dots, zcol = "variable")
-
 ```
 
 
