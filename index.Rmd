@@ -46,8 +46,6 @@ Secondly, I also added Census data in order to map out where the venues where in
 *Challenges*: When I was creating my map, I pulled the data from Yelp into a separate .csv file and then re-loaded it into R. However, the data was not fully reading, so in order to accomplish this first draft, I manually added Markers and Popups as points onto my map. I would like assistance in remedying this issue, by directly have all of the information that Yelp pulls from its search into my Markers as Popup information. 
 
 
-Load any required packages in a code chunk (you may need to install some packages):
-
 ```{r, message=F, warning=F, results='hide'}
 library(tidyverse)
 library(leaflet)
