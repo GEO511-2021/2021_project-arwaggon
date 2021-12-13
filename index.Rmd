@@ -1,5 +1,5 @@
 ---
-title: "My Final Project Template - First Draft"
+title: "My Final Project"
 author: "Amanda Waggoner"
 subtitle: Final project template for the GEO511 class
 editor_options: 
@@ -99,6 +99,8 @@ business_bk_spatial <- business_bk$businesses %>% as.data.frame() %>%
   st_as_sf(coords=c("coordinates.longitude", "coordinates.latitude"))
 business_bk_spatial<-business_bk_spatial %>% mutate(popup=paste0("<br/><b><a href='",url,"'>",name,"</a></b><br>",location.address1))
   
+# Transform the business_bk_spaital data into a different coordinate system
+business_bk_spatial <- business_bk_spatial %>% st_set_crs(4326) %>% st_transform(crs=st_crs(brooklyn))
 
 knitr::opts_chunk$set(cache=TRUE)  # cache the results for quick compiling
 ```
@@ -127,6 +129,18 @@ ggplot(brooklyn, aes(fill = estimate, color = estimate)) +
        caption = "Data from the 2018, ACS Census",
        fill = "ACS by Race"
        )
+
+# Plot of African-American Venues over census data
+ggplot(brooklyn, aes(fill = estimate, color = estimate)) +
+  geom_sf() + 
+  scale_fill_viridis_c(labels = c("White", "Black", "Asian", "Hispanic", "None")) +
+  scale_color_viridis_c(guide = "none") +
+  theme_void() +
+  labs(title = "African-American Music Venues Over Racial Census Tracts in Kings County, NY (Brooklyn, NY)",
+       subtitle = "Kings County, Brooklyn, NY",
+       caption = "Data from the 2018, ACS Census",
+       fill = "ACS Census Tracts by Race") +
+  geom_sf(data = business_bk_spatial, inherit.aes = F) 
 
 # Create a map of African-American businesses in Brooklyn, NY from the Yelp API
 
