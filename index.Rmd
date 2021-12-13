@@ -40,10 +40,10 @@ sense of community (Valli 2016).
 
   In order to accomplish my findings, I ended up creating an application through Yelp's API for Developers. That application was the basis for my API Key and search conditions that I used to apply to my code. Then, within my code, I added sections where I could apply specific terms for my search parameters. (This will be demonstrated within my code chunks below.) I ended up focusing on the search term, "African-American", and then looking for categories applicable to nightlife, such as, "bars, venues", etc. 
 
-Data: The data that I used to create maps were all open-source data. Ggplot2 and Leaflet were my main sources of map creation. I installed the packages and created maps based on the data points I extracted from my Yelp search. However, my biggest issue that I need help with is pulling the coordinate data directly from my Yelp search onto my map.
+*Data*: The data that I used to create maps were all open-source data. Ggplot2 and Leaflet were my main sources of map creation. I installed the packages and created maps based on the data points I extracted from my Yelp search. However, my biggest issue that I need help with is pulling the coordinate data directly from my Yelp search onto my map.
 Secondly, I also added Census data in order to map out where the venues where in correlation to the racial atmosphere of Brooklyn. 
 
-Challenges: When I was creating my map, I pulled the data from Yelp into a separate .csv file and then re-loaded it into R. However, the data was not fully reading, so in order to accomplish this first draft, I manually added Markers and Popups as points onto my map. I would like assistance in remedying this issue, by directly have all of the information that Yelp pulls from its search into my Markers as Popup information. 
+*Challenges*: When I was creating my map, I pulled the data from Yelp into a separate .csv file and then re-loaded it into R. However, the data was not fully reading, so in order to accomplish this first draft, I manually added Markers and Popups as points onto my map. I would like assistance in remedying this issue, by directly have all of the information that Yelp pulls from its search into my Markers as Popup information. 
 
 
 Load any required packages in a code chunk (you may need to install some packages):
@@ -113,7 +113,7 @@ In terms or results, I've generated two maps for the purposes of this peer revie
 # Mapping the data extracted from the Yelp Fusion API
 # Plot of Yelp data
 ggplot(business_bk_spatial)+geom_sf() + theme_void()+
-  labs(title = "Brooklyn African-American Venues by Census Tract in Brooklyn, NY",
+  labs(title = "African-American Venues by Census Tract in Brooklyn, NY",
        subtitle = "Locations of the buisnesses being pulled from the Yelp API in Brooklyn, NY",
        caption = "Yelp API"
        )
@@ -124,7 +124,7 @@ ggplot(brooklyn, aes(fill = estimate, color = estimate)) +
   scale_fill_viridis_c(labels = c("White", "Black", "Asian", "Hispanic", "None")) +
   scale_color_viridis_c(guide = "none") +
   theme_void() +
-  labs(title = "Race by Census Tract in Kings County, NY (Brooklyn, NY)",
+  labs(title = "Race by Census Tract in Kings County, NY",
        subtitle = "Kings County, Brooklyn, NY",
        caption = "Data from the 2018, ACS Census",
        fill = "ACS by Race"
@@ -136,7 +136,7 @@ ggplot(brooklyn, aes(fill = estimate, color = estimate)) +
   scale_fill_viridis_c(labels = c("White", "Black", "Asian", "Hispanic", "None")) +
   scale_color_viridis_c(guide = "none") +
   theme_void() +
-  labs(title = "African-American Music Venues Over Racial Census Tracts in Kings County, NY (Brooklyn, NY)",
+  labs(title = "African-American Music Venues Over Racial Census Tracts in Kings County, NY",
        subtitle = "Kings County, Brooklyn, NY",
        caption = "Data from the 2018, ACS Census",
        fill = "ACS Census Tracts by Race") +
@@ -161,11 +161,9 @@ business_bk_spatial %>%
 
 # Conclusions
 
-I have not completed the analysis portion of this research yet, so I do not have any conclusive findings as of yet. However, what I can attest to is that there are not a lot of Black-owned music venues left within this small amount of data. What mostly appears when I've used these terms for my search are museums and some bars, but not much in the way of music-specific venues. 
+From what I have analyzed, there are less African-American music venues in white areas of Brooklyn. The areas that these venues tend to be more centralized in Black areas of Brooklyn. Because of this, I believe that gentrification has played a role in which Black venues are still open within Brooklyn. However, for this analysis to be more accurate and more in-depth, I'd like to examine Black venues over time, rather than just examine venues that are open as of now. 
 
 ---
-
-I have found that so far, in the context of the venues, there are things I need to update.
 
 # References 
 
@@ -175,7 +173,12 @@ I have found that so far, in the context of the venues, there are things I need 
 4. http://remi-daigle.github.io/GIS_mapping_in_R/
 5. https://rstudio.github.io/leaflet/markers.html
 6. https://map-rfun.library.duke.edu/01_georeference.html
+7. “What’s Happened to the People?” Gentrification
+and Racial Segregation in Brooklyn - Themis Chronopoulos 
+8. The Brooklyn Experience: The Ultimate Guide to Neighborhoods & Noshes, Culture & the Cutting Edge - Ellen Freudenheim
+9. Artistic careers in the cyclicality of art scenes and gentrification: symbolic capital accumulation
+through space in Bushwick, NYC - Chiara Valli
 
-Final Project - data changes now
+
 
 
