@@ -48,7 +48,7 @@ Challenges: When I was creating my map, I pulled the data from Yelp into a separ
 
 Load any required packages in a code chunk (you may need to install some packages):
 
-```{r, message=F, warning=F}
+```{r, message=F, warning=F, results='hide'}
 library(tidyverse)
 library(leaflet)
 library(kableExtra)
@@ -98,9 +98,17 @@ business_bk_spatial <- business_bk$businesses %>% as.data.frame() %>%
   jsonlite::flatten(recursive = TRUE) %>% unnest(cols="coordinates.latitude") %>%
   st_as_sf(coords=c("coordinates.longitude", "coordinates.latitude"))
 business_bk_spatial<-business_bk_spatial %>% mutate(popup=paste0("<br/><b><a href='",url,"'>",name,"</a></b><br>",location.address1))
+  
 
+knitr::opts_chunk$set(cache=TRUE)  # cache the results for quick compiling
+```
 
+# Results
 
+In terms or results, I've generated two maps for the purposes of this peer review. The first map is just showing the location of Brooklyn, NY in New York state. The second map is showing the results of my Yelp API search with the names as Popups. However, I want to fix this and layers of information as clickable popups to the data. For example, I want to add Markers with the business' URL links, information, and other facts.
+
+```{r, fig.width=6, fig.height=3, fig.cap="Map of Brooklyn and African-American Brooklyn Music Venues/Nightlife"}
+# Mapping the data extracted from the Yelp Fusion API
 # Plot of Yelp data
 ggplot(business_bk_spatial)+geom_sf() + theme_void()+
   labs(title = "Brooklyn African-American Venues by Census Tract in Brooklyn, NY",
@@ -119,19 +127,6 @@ ggplot(brooklyn, aes(fill = estimate, color = estimate)) +
        caption = "Data from the 2018, ACS Census",
        fill = "ACS by Race"
        )
-
-  
-
-knitr::opts_chunk$set(cache=TRUE)  # cache the results for quick compiling
-```
-
-# Results
-
-In terms or results, I've generated two maps for the purposes of this peer review. The first map is just showing the location of Brooklyn, NY in New York state. The second map is showing the results of my Yelp API search with the names as Popups. However, I want to fix this and layers of information as clickable popups to the data. For example, I want to add Markers with the business' URL links, information, and other facts.
-
-```{r, fig.width=6, fig.height=3, fig.cap="Map of Brooklyn and African-American Brooklyn Music Venues/Nightlife"}
-# Mapping the data extracted from the Yelp Fusion API
-
 
 # Create a map of African-American businesses in Brooklyn, NY from the Yelp API
 
