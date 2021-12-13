@@ -149,12 +149,8 @@ ggplot(brooklyn, aes(fill = estimate, color = estimate)) +
 business_bk_spatial %>%
   leaflet() %>%
   addProviderTiles(providers$Esri.WorldImagery, group = "World Imagery") %>%
-  addProviderTiles(providers$JusticeMap.multi, group = "Multi-Racial Map") %>%
-  addProviderTiles(providers$JusticeMap.black, group = "Black") %>%
-  addProviderTiles(providers$JusticeMap.asian, group = "Asian") %>%
-  addProviderTiles(providers$JusticeMap.white, group = "White") %>%
-  addProviderTiles(providers$JusticeMap.hispanic, group = "Hispanic") %>%
-  addLayersControl(baseGroups = c("World Imagery","Multi-Racial Map", "Black Population", "Asian", "White", "Hispanic")) %>%
+  addProviderTiles(providers$Esri.WorldStreetMap, group = "World Street Map") %>%
+  addLayersControl(baseGroups = c("World Imagery","World Street Map")) %>%
   # Add the businesses as Markers
   addCircleMarkers(fillOpacity = 0.5, popup = ~popup)%>%
  setView(lat = 40.650002, lng =-73.949997, zoom = 9.5)
