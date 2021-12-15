@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Amanda Waggoner" />
+
+
+<title>My Final Project</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="site_libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<script src="site_libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="site_libs/leaflet-providers-plugin-2.0.4.1/leaflet-providers-plugin.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Spatial Data Science Final Project</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">My Final Project</h1>
+<h3 class="subtitle">Final project template for the GEO511 class</h3>
+<h4 class="author">Amanda Waggoner</h4>
+
+</div>
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Brooklyn, NY is one of the major boroughs of New York City, NY. Known for its diverse populace, art and music scene, the borough has become a hub for many to live and explore the area. In the mid-1830s to the beginning of the 1900s, Brooklyn was a hub for many immigrants to start their lives together. A multicultural melting pot, just like the rest of New York City, Brooklyn contained Blacks, Asians, Latinos, and European migrants within its boundaries. However, New York City’s demography shifted with the rise of the industrial revolution and the impacts of World Wars I/II. Economically, many shipping and manufacturing industries left the city as a whole, causing crime, job losses, and people moving out from the city (Freudenheim 14).</p>
+<p>Because of these shifts, throughout the 1950s, 60s and 70s, Brooklyn kept declining in population. However, immigration ensued as people from other countries kept coming to America to find new ways of life. Brooklyn began to return back to its original prowess in the mid-1980s, as parks, buildings, homes, etc. were revitalized by wealthier patrons moving into the area. Gentrification ensued, and urban renewal policies began to take foot in many neighborhoods within Brooklyn. From the 1980s onward, toward the new millennium, Brooklyn began to become further and further gentrified and was dubbed one of the “most desirable places to live” during the 2010s (Freudenheim 14).</p>
+<p>How did these changes impact the Black communities living within Brooklyn? Initially, during the late 1800s, as freed slaves began to escape and live towards the north, Black populations rose in many urban areas like Philadelphia, Washington, D.C., and other cities across the United States. New York was another city where freed Blacks lived and escaped towards, and similar to Harlem, Brooklyn was another location within New York City where Blacks felt safe to establish community in. Because of the community that Blacks established in Brooklyn, many types of businesses: (churches, restaurants, schools, nightlife, etc.), were established for and by Black Brooklynites.</p>
+<p>As time progressed, closer to the new millennium, white gentrifiers replaced and outnumbered the Black populace of Brooklyn. Many formerly majority Black neighborhoods within Brooklyn were becoming increasingly more populated by “upper-class whites” (Chronopoulos 2020). Because of these changes, many Black Brooklynites felt displaced and removed from the communities they established and created, feeling as if their legacies were being removed from the neighborhoods they inhabited. Gentrification not only displaced Black inhabitants from their homes but also displaced Black Brooklynites from their businesses and general sense of community (Valli 2016).</p>
+</div>
+<div id="materials-and-methods" class="section level1">
+<h1>Materials and methods</h1>
+<p>In order to accomplish my findings, I ended up creating an application through Yelp’s API for Developers. That application was the basis for my API Key and search conditions that I used to apply to my code. Then, within my code, I added sections where I could apply specific terms for my search parameters. (This will be demonstrated within my code chunks below.) I ended up focusing on the search term, “African-American”, and then looking for categories applicable to nightlife, such as, “bars, venues”, etc.</p>
+<p><em>Data</em>: The data that I used to create maps were all open-source data. Ggplot2 and Leaflet were my main sources of map creation. I installed the packages and created maps based on the data points I extracted from my Yelp search. However, my biggest issue that I need help with is pulling the coordinate data directly from my Yelp search onto my map. Secondly, I also added Census data in order to map out where the venues where in correlation to the racial atmosphere of Brooklyn.</p>
+<p><em>Challenges</em>: When I was creating my map, I pulled the data from Yelp into a separate .csv file and then re-loaded it into R. However, the data was not fully reading, so in order to accomplish this first draft, I manually added Markers and Popups as points onto my map. I would like assistance in remedying this issue, by directly have all of the information that Yelp pulls from its search into my Markers as Popup information.</p>
+<pre class="r"><code>library(tidyverse)
+library(leaflet)
+library(kableExtra)
+library(sf)
+library(dplyr)
+library(jsonlite)
+library(ggplot2)
+library(leaflet)
+library(htmltools)
+library(spData)
+library(mapview) 
+
+
+# Load yelpr package
+library(yelpr)
+
+#Load in tidycensus package
+library(tidycensus)
+
+# Assign Yelp App Key
+key &lt;- Sys.getenv(&quot;YELP_API_KEY&quot;)
+#key &lt;-  &quot;ovIH-U3kauQ5ikHV5951RqsOq81q4MycWiu5xIsFCzd_c2zKxAwUdhb-SDvOeJ9Wrp_3rSVS3z5PuQDqfbl9grNOI3SFeHsOViv2eXZMnus6NlYyWs3gURZP_m-UYXYx&quot;
+
+#Assign Census App Key
+census_api_key(Sys.getenv(&quot;CENSUS_API_KEY&quot;))
+#census_api_key(&quot;f48d3af8bc5fffac768182aef551a3d3841a4ae8&quot;, overwrite= TRUE, install= TRUE)
+
+#Search for races in Brooklyn, NY using 2020 Census Data
+racevars &lt;- c(White = &quot;B02001_002&quot;,
+              Black = &quot;B02001_003&quot;, 
+              Asian = &quot;B02001_005&quot;, 
+              Hispanic = &quot;B03002_012&quot;)
+
+options(tigris_use_cache = TRUE)
+brooklyn &lt;- get_acs(geography = &quot;tract&quot;, year = 2018, variables = racevars, 
+                  state = &quot;NY&quot;, county = &quot;Kings County&quot;, geometry = TRUE, cache_table=T) 
+
+
+# Search businesses with keyword &#39;black&#39; in &#39;Brooklyn, New York&#39;
+business_bk &lt;- business_search(api_key = key,
+                               location = &#39;Brooklyn, NY&#39;,
+                               term = &quot;African American&quot;,
+                               categories = &#39;venues, bars, African&#39;,
+                               limit = 50)  
+                                  
+business_bk_spatial &lt;- business_bk$businesses %&gt;% as.data.frame() %&gt;% 
+  jsonlite::flatten(recursive = TRUE) %&gt;% unnest(cols=&quot;coordinates.latitude&quot;) %&gt;%
+  st_as_sf(coords=c(&quot;coordinates.longitude&quot;, &quot;coordinates.latitude&quot;))
+business_bk_spatial&lt;-business_bk_spatial %&gt;% mutate(popup=paste0(&quot;&lt;br/&gt;&lt;b&gt;&lt;a href=&#39;&quot;,url,&quot;&#39;&gt;&quot;,name,&quot;&lt;/a&gt;&lt;/b&gt;&lt;br&gt;&quot;,location.address1))
+  
+# Transform the business_bk_spaital data into a different coordinate system
+business_bk_spatial &lt;- business_bk_spatial %&gt;% st_set_crs(4326) %&gt;% st_transform(crs=st_crs(brooklyn))
+
+knitr::opts_chunk$set(cache=TRUE)  # cache the results for quick compiling</code></pre>
+</div>
+<div id="results" class="section level1">
+<h1>Results</h1>
+<p>In terms of results, I’ve generated three different for the purposes of this project. The first map is just showing the location of Brooklyn, NY in New York state. The location of Brooklyn is broken down into several racial categories by census tract. The second map shows the African-American business overlaid ontop of racial data by census tract. The second map is showing the results of my Yelp API search with the names as Popups. However, I want to fix this and layers of information as clickable popups to the data. For example, I want to add Markers with the business’ URL links, information, and other facts.</p>
+<pre class="r"><code># Mapping the data extracted from the Yelp Fusion API
+# Plot of Yelp data
+ggplot(business_bk_spatial)+geom_sf() + theme_void()+
+  labs(title = &quot;African-American Venues by Census Tract in Brooklyn, NY&quot;,
+       subtitle = &quot;Locations of the buisnesses being pulled from the Yelp API in Brooklyn, NY&quot;,
+       caption = &quot;Yelp API&quot;
+       )</code></pre>
+<div class="figure">
+<img src="index_files/figure-html/unnamed-chunk-2-1.png" alt="Map of Brooklyn and African-American Brooklyn Music Venues/Nightlife" width="576" />
+<p class="caption">
+Map of Brooklyn and African-American Brooklyn Music Venues/Nightlife
+</p>
+</div>
+<pre class="r"><code># Plot of Census data
+ggplot(brooklyn, aes(fill = estimate, color = estimate)) + 
+  geom_sf() +
+  scale_fill_viridis_c(labels = c(&quot;White&quot;, &quot;Black&quot;, &quot;Asian&quot;, &quot;Hispanic&quot;, &quot;None&quot;)) +
+  scale_color_viridis_c(guide = &quot;none&quot;) +
+  theme_void() +
+  labs(title = &quot;Race by Census Tract in Kings County, NY&quot;,
+       subtitle = &quot;Kings County, Brooklyn, NY&quot;,
+       caption = &quot;Data from the 2018, ACS Census&quot;,
+       fill = &quot;ACS by Race&quot;
+       )</code></pre>
+<div class="figure">
+<img src="index_files/figure-html/unnamed-chunk-2-2.png" alt="Map of Brooklyn and African-American Brooklyn Music Venues/Nightlife" width="576" />
+<p class="caption">
+Map of Brooklyn and African-American Brooklyn Music Venues/Nightlife
+</p>
+</div>
+<pre class="r"><code># Plot of African-American Venues over census data
+ggplot(brooklyn, aes(fill = estimate, color = estimate)) +
+  geom_sf() + 
+  scale_fill_viridis_c(labels = c(&quot;White&quot;, &quot;Black&quot;, &quot;Asian&quot;, &quot;Hispanic&quot;, &quot;None&quot;)) +
+  scale_color_viridis_c(guide = &quot;none&quot;) +
+  theme_void() +
+  labs(title = &quot;African-American Music Venues Over Racial Census Tracts in Kings County, NY&quot;,
+       subtitle = &quot;Kings County, Brooklyn, NY&quot;,
+       caption = &quot;Data from the 2018, ACS Census&quot;,
+       fill = &quot;ACS Census Tracts by Race&quot;) +
+  geom_sf(data = business_bk_spatial, inherit.aes = F) </code></pre>
+<div class="figure">
+<img src="index_files/figure-html/unnamed-chunk-2-3.png" alt="Map of Brooklyn and African-American Brooklyn Music Venues/Nightlife" width="576" />
+<p class="caption">
+Map of Brooklyn and African-American Brooklyn Music Venues/Nightlife
+</p>
+</div>
+<pre class="r"><code># Create a map of African-American businesses in Brooklyn, NY from the Yelp API
+
+
+# Select different basemaps
+business_bk_spatial %&gt;%
+  leaflet() %&gt;%
+  addProviderTiles(providers$Esri.WorldImagery, group = &quot;World Imagery&quot;) %&gt;%
+  addProviderTiles(providers$Esri.WorldStreetMap, group = &quot;World Street Map&quot;) %&gt;%
+  addLayersControl(baseGroups = c(&quot;World Imagery&quot;,&quot;World Street Map&quot;)) %&gt;%
+  # Add the businesses as Markers
+  addCircleMarkers(fillOpacity = 0.5, popup = ~popup)%&gt;%
+ setView(lat = 40.650002, lng =-73.949997, zoom = 9.5)</code></pre>
+<pre><code>## Warning: sf layer has inconsistent datum (+proj=longlat +datum=NAD83 +no_defs).
+## Need &#39;+proj=longlat +datum=WGS84&#39;</code></pre>
+<div class="figure">
+<div id="htmlwidget-ce6f3086464c0d5f6639" style="width:576px;height:288px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ce6f3086464c0d5f6639">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"World Imagery",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldStreetMap",null,"World Street Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["World Imagery","World Street Map"],[],{"collapsed":true,"autoZIndex":true,"position":"topright"}]},{"method":"addCircleMarkers","args":[[40.73879,40.7024142,40.766132,40.6905279416182,40.692437,40.618276,40.765436,40.708260750342,40.8454,40.785434,40.6870518315231,40.70686,40.5888325,40.70318,40.79251,40.69359,40.71915,40.83102,40.6602393283373,40.68105,40.72279,40.7360568971331,40.7188586,40.687202,40.7456816,40.75749,40.5881758,40.72257,40.76452,40.5764975093616,40.764345,40.5906811079711,40.71373,40.7108726501465,40.7524893340113,40.7392732838624,40.78554,40.7607,40.7217399,40.745391,40.746185,40.72454,40.77273,40.8188782,40.7218937792125,40.7107591,40.68973,40.72036,40.732102,40.910654],[-73.99455,-73.9266295,-73.829394,-73.9899399429917,-73.940086,-73.932571,-73.983925,-74.0545828124782,-73.85893,-73.95726,-73.977693582209,-73.92353,-73.960316,-73.9946499,-73.95192,-73.966532,-74.00994,-73.91975,-73.9178388565779,-73.97748,-74.00491,-73.9872401005554,-73.9552174,-73.986221,-74.0087216,-73.98662,-73.8983079,-74.0012,-73.99586,-73.9824618747127,-73.98798,-73.9946947928466,-73.93397,-73.9365921020508,-73.989317343711,-73.9734576883433,-73.97263,-74.018038,-73.99326,-73.992492,-73.989523,-73.9965931,-73.915772,-73.9265215,-73.9575488529698,-73.9853394,-73.98701,-73.99713,-74.064132,-73.782417],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.5},null,null,["<br/><b><a href='https://www.yelp.com/biz/raines-law-room-new-york?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Raines Law Room<\/a><\/b><br>48 W 17th St","<br/><b><a href='https://www.yelp.com/biz/mad-tropical-brooklyn?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Mad Tropical<\/a><\/b><br>236 Troutman St","<br/><b><a href='https://www.yelp.com/biz/lewis-latimer-house-museum-flushing?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Lewis Latimer House Museum<\/a><\/b><br>34-41 137th St","<br/><b><a href='https://www.yelp.com/biz/new-york-transit-museum-brooklyn?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>New York Transit Museum<\/a><\/b><br>99 Schermerhorn St","<br/><b><a href='https://www.yelp.com/biz/the-brooklyn-bank-brooklyn-4?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>The Brooklyn Bank<\/a><\/b><br>896 Dekalb Ave","<br/><b><a href='https://www.yelp.com/biz/hills-place-brooklyn?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Hills Place<\/a><\/b><br>2112 Flatbush Ave","<br/><b><a href='https://www.yelp.com/biz/spyscape-new-york?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>SPYSCAPE<\/a><\/b><br>928 8th Ave","<br/><b><a href='https://www.yelp.com/biz/liberty-science-center-jersey-city?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Liberty Science Center<\/a><\/b><br>222 Jersey City Blvd","<br/><b><a href='https://www.yelp.com/biz/maestros-caterers-bronx?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Maestro's Caterers<\/a><\/b><br>1703 Bronxdale Ave","<br/><b><a href='https://www.yelp.com/biz/the-jewish-museum-new-york?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>The Jewish Museum<\/a><\/b><br>1109 5th Ave","<br/><b><a href='https://www.yelp.com/biz/33-lafayette-brooklyn?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>33 Lafayette<\/a><\/b><br>33 Lafayette Ave","<br/><b><a href='https://www.yelp.com/biz/house-of-yes-brooklyn?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>House of Yes<\/a><\/b><br>2 Wyckoff Ave","<br/><b><a href='https://www.yelp.com/biz/chinar-restaurant-and-special-events-brooklyn-2?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Chinar Restaurant & Special Events<\/a><\/b><br>2775 Coney Island Ave","<br/><b><a href='https://www.yelp.com/biz/the-river-caf%C3%A9-brooklyn-3?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>The River Café<\/a><\/b><br>1 Water St","<br/><b><a href='https://www.yelp.com/biz/museum-of-the-city-of-new-york-new-york?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Museum of the City of New York<\/a><\/b><br>1220 5th Ave","<br/><b><a href='https://www.yelp.com/biz/pipsqueak-shoppe-and-salon-brooklyn-2?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Pipsqueak Shoppe & Salon<\/a><\/b><br>469 Myrtle Ave","<br/><b><a href='https://www.yelp.com/biz/american-cut-steakhouse-tribeca-new-york?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>American Cut Steakhouse Tribeca<\/a><\/b><br>363 Greenwich St","<br/><b><a href='https://www.yelp.com/biz/bronx-museum-of-the-arts-bronx-3?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Bronx Museum of the Arts<\/a><\/b><br>1040 Grand Concourse","<br/><b><a href='https://www.yelp.com/biz/lenox-rental-hall-brownsville?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Lenox Rental Hall<\/a><\/b><br>320 E 98th St","<br/><b><a href='https://www.yelp.com/biz/convivium-osteria-brooklyn?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Convivium Osteria<\/a><\/b><br>68 5th Ave","<br/><b><a href='https://www.yelp.com/biz/veranda-new-york-2?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Veranda<\/a><\/b><br>23 Grand St","<br/><b><a href='https://www.yelp.com/biz/dear-irving-new-york?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Dear Irving<\/a><\/b><br>55 Irving Pl","<br/><b><a href='https://www.yelp.com/biz/my-moon-brooklyn-2?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>My Moon<\/a><\/b><br>184 N 10th St","<br/><b><a href='https://www.yelp.com/biz/deity-events-brooklyn?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Deity Events<\/a><\/b><br>368 Atlantic Ave","<br/><b><a href='https://www.yelp.com/biz/bowlero-chelsea-piers-new-york?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Bowlero Chelsea Piers<\/a><\/b><br>59 Chelsea Piers","<br/><b><a href='https://www.yelp.com/biz/carmines-italian-restaurant-times-square-new-york-5?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Carmine's Italian Restaurant - Times Square<\/a><\/b><br>200 W 44th St","<br/><b><a href='https://www.yelp.com/biz/aviator-sports-and-events-center-brooklyn-9?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Aviator Sports & Events Center<\/a><\/b><br>3159 Flatbush Ave","<br/><b><a href='https://www.yelp.com/biz/dance-with-me-soho-new-york?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Dance With Me SoHo<\/a><\/b><br>466 Broome St","<br/><b><a href='https://www.yelp.com/biz/the-press-lounge-new-york-3?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>The Press Lounge<\/a><\/b><br>653 11th Ave","<br/><b><a href='https://www.yelp.com/biz/gargiulos-brooklyn-3?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Gargiulo's<\/a><\/b><br>2911 W 15th St","<br/><b><a href='https://www.yelp.com/biz/k-rico-steakhouse-new-york?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>K Rico Steakhouse<\/a><\/b><br>772 9th Ave","<br/><b><a href='https://www.yelp.com/biz/adventurers-family-entertainment-center-brooklyn?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Adventurers Family Entertainment Center<\/a><\/b><br>1824 Shore Pkwy","<br/><b><a href='https://www.yelp.com/biz/sunnyvale-brooklyn-brooklyn?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Sunnyvale Brooklyn<\/a><\/b><br>1031 Grand St","<br/><b><a href='https://www.yelp.com/biz/the-paper-box-brooklyn?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>The Paper Box<\/a><\/b><br>17 Meadow St","<br/><b><a href='https://www.yelp.com/biz/magic-hour-rooftop-bar-and-lounge-new-york-3?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Magic Hour Rooftop Bar & Lounge<\/a><\/b><br>485 7th Ave","<br/><b><a href='https://www.yelp.com/biz/riverpark-new-york?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Riverpark<\/a><\/b><br>450 E 29th St","<br/><b><a href='https://www.yelp.com/biz/osteria-cotta-new-york?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Osteria Cotta<\/a><\/b><br>513 Columbus Ave","<br/><b><a href='https://www.yelp.com/biz/chart-house-weehawken?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Chart House<\/a><\/b><br>1700 Harbor Blvd","<br/><b><a href='https://www.yelp.com/biz/katra-new-york?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Katra<\/a><\/b><br>217 Bowery St","<br/><b><a href='https://www.yelp.com/biz/black-door-new-york?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Black Door<\/a><\/b><br>127 W 26th St","<br/><b><a href='https://www.yelp.com/biz/made-hotel-new-york-3?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>MADE Hotel<\/a><\/b><br>44 W 29th St","<br/><b><a href='https://www.yelp.com/biz/housing-works-bookstore-new-york?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Housing Works Bookstore<\/a><\/b><br>126 Crosby St","<br/><b><a href='https://www.yelp.com/biz/bohemian-hall-and-beer-garden-astoria?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Bohemian Hall & Beer Garden<\/a><\/b><br>2919 24th Ave","<br/><b><a href='https://www.yelp.com/biz/zona-de-cuba-bronx?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Zona De Cuba<\/a><\/b><br>558 Grand Concourse","<br/><b><a href='https://www.yelp.com/biz/brooklyn-bowl-brooklyn?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Brooklyn Bowl<\/a><\/b><br>61 Wythe Ave","<br/><b><a href='https://www.yelp.com/biz/queen-of-hearts-new-york-3?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Queen of Hearts<\/a><\/b><br>299 South St","<br/><b><a href='https://www.yelp.com/biz/dallas-bbq-brooklyn?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Dallas BBQ<\/a><\/b><br>180 Livingston St","<br/><b><a href='https://www.yelp.com/biz/goldbar-new-york?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Goldbar<\/a><\/b><br>389 Broome St","<br/><b><a href='https://www.yelp.com/biz/loews-jersey-theatre-jersey-city-3?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Loew's Jersey Theatre<\/a><\/b><br>54 Journal Sq","<br/><b><a href='https://www.yelp.com/biz/jolos-new-rochelle-2?adjust_creative=f2ZavUgdkNuGof2CT6ztew&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=f2ZavUgdkNuGof2CT6ztew'>Jolo's<\/a><\/b><br>49 Lawton St"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[40.5764975093616,40.910654],"lng":[-74.064132,-73.782417]},"setView":[[40.650002,-73.949997],9.5,[]]},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Map of Brooklyn and African-American Brooklyn Music Venues/Nightlife
+</p>
+</div>
+</div>
+<div id="conclusions" class="section level1">
+<h1>Conclusions</h1>
+<p>From what I have analyzed, there are less African-American music venues in white areas of Brooklyn. The areas that these venues tend to be more centralized in Black areas of Brooklyn. Because of this, I believe that gentrification has played a role in which Black venues are still open within Brooklyn. However, for this analysis to be more accurate and more in-depth, I’d like to examine Black venues over time, rather than just examine venues that are open as of now.</p>
+<hr />
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<ol style="list-style-type: decimal">
+<li><a href="https://github.com/OmaymaS/yelpr" class="uri">https://github.com/OmaymaS/yelpr</a></li>
+<li><a href="https://www.yelp.com/profile?fsid=gLo385y0jkTIMh1kCXgjjw" class="uri">https://www.yelp.com/profile?fsid=gLo385y0jkTIMh1kCXgjjw</a></li>
+<li><a href="https://towardsdatascience.com/making-interactive-maps-in-r-with-less-than-15-lines-of-code-bfd81f587e12" class="uri">https://towardsdatascience.com/making-interactive-maps-in-r-with-less-than-15-lines-of-code-bfd81f587e12</a></li>
+<li><a href="http://remi-daigle.github.io/GIS_mapping_in_R/" class="uri">http://remi-daigle.github.io/GIS_mapping_in_R/</a></li>
+<li><a href="https://rstudio.github.io/leaflet/markers.html" class="uri">https://rstudio.github.io/leaflet/markers.html</a></li>
+<li><a href="https://map-rfun.library.duke.edu/01_georeference.html" class="uri">https://map-rfun.library.duke.edu/01_georeference.html</a></li>
+<li>“What’s Happened to the People?” Gentrification and Racial Segregation in Brooklyn - Themis Chronopoulos</li>
+<li>The Brooklyn Experience: The Ultimate Guide to Neighborhoods &amp; Noshes, Culture &amp; the Cutting Edge - Ellen Freudenheim</li>
+<li>Artistic careers in the cyclicality of art scenes and gentrification: symbolic capital accumulation through space in Bushwick, NYC - Chiara Valli</li>
+</ol>
+</div>
+
+<!-- give the footer some space -->
+<br/>
+<br/>
+
+<footer id="site-footer">
+  <div id="footer1">
+  This website is a project for Adam Wilson's <a href="https://wilsonlab.io/GEO511"><i> Spatial Data Science (GEO511) </i></a>Course at the University at Buffalo
+  </div>
+  <div id="footer2">
+  <a rel="license" property="http://creativecommons.org/ns#license"
+  href="http://creativecommons.org/licenses/by/4.0/" ><img src="img/cc-by.svg" alt="cc-by"/></a> 
+  </div>
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+
+</body>
+</html>
